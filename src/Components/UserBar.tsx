@@ -1,7 +1,9 @@
 import React, { useState } from 'react'
 import {
   IconButton,
-  Card
+  Card,
+  Typography,
+  TextField
 } from '@material-ui/core'
 import {
   Theme,
@@ -28,12 +30,31 @@ const useStyles = makeStyles((theme: Theme) =>
       display: 'flex',
       justifyContent: 'space-between',
       padding: '0.2rem 0.6rem'
+    },
+    searchBar: {
+      width: '30rem',
+      height: '100%',
+      margin: 'auto 0px',
+      transition: '500ms linear',
+      boxShadow: 'rgba(0, 0, 0, 0.28) 2px 3px 8px'
+    },
+    cssOutlinedInput: {
+      '&$cssFocused $notchedOutline': {
+        borderColor: 'red',
+      }
+    },
+    notchedOutline: {
+      borderColor: 'purple'
+    },
+    focusedNotchedOutline: {
+
     }
   })
 )
 
 const UserBar: React.FC = () => {
   const [starred, setStarred] = useState(false)
+  const [search, setSearch] = useState(false)
   const classes = useStyles()
 
   const handleButtonCheck = () => {
@@ -61,7 +82,10 @@ const UserBar: React.FC = () => {
   }
 
   const handleButtonSearch = () => {
-    // do something
+    setSearch((prev: React.ComponentState) => !prev)
+    setTimeout(() => {
+      document.getElementById('searchInput')?.focus()
+    }, 100);
   }
 
   return (
@@ -116,6 +140,37 @@ const UserBar: React.FC = () => {
             }
           </IconButton>
         </div>
+        {
+          search
+            ? (
+              <div className={classes.searchBar}>
+                <TextField
+                  id='searchInput'
+                  fullWidth
+                  label=''
+                  variant='outlined'
+                  size='small'
+                  placeholder='Buscar:'
+                  className={classes.notchedOutline}
+                  inputProps={{
+                    classes: {
+                      root: classes.cssOutlinedInput,
+                      focused: classes.focusedNotchedOutline,
+                      notchedOutline: classes.notchedOutline
+                    }
+                  }}
+                  onKeyPress={(evt: React.KeyboardEvent<HTMLInputElement>) => {
+                    if (evt.key !== 'Enter') return
+                    setSearch(false)
+                  }}
+                />
+              </div>
+            )
+            : (
+              <>
+              </>
+            )
+        }
 
         <div style={{ display: 'flex' }}>
           <div style={{ display: 'flex' }}>
@@ -131,6 +186,9 @@ const UserBar: React.FC = () => {
               aria-label='calendar'
               className={classes.iconButton}
               onClick={handleButtonSearch}
+              style={{
+                backgroundColor: search ? '#bcbcbc' : 'unset'
+              }}
             >
               <SearchIcon />
             </IconButton>
@@ -138,7 +196,7 @@ const UserBar: React.FC = () => {
           <UserProfileButton />
         </div>
       </div>
-    </Card>
+    </Card >
   )
 }
 
