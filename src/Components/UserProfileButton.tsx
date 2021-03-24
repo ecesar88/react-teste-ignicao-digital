@@ -1,5 +1,5 @@
 import React, { useState } from 'react'
-import { makeStyles, createStyles, Theme } from '@material-ui/core/styles'
+import { makeStyles, createStyles, Theme, ThemeProvider } from '@material-ui/core/styles'
 import UserProfilePicture from '../Assets/user_profile.png'
 import UserProfilePlaceholder from '../Assets/user_profile_placeholder.svg'
 

@@ -23,6 +23,9 @@ import UserProfileButton from './UserProfileButton'
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
+    component: {
+      margin: '1rem 0'
+    },
     iconButton: {
       color: theme.palette.primary.main
     },
@@ -34,7 +37,7 @@ const useStyles = makeStyles((theme: Theme) =>
     searchBar: {
       width: '30rem',
       height: '100%',
-      margin: 'auto 0px',
+      margin: 'auto 0',
       transition: '500ms linear',
       boxShadow: 'rgba(0, 0, 0, 0.28) 2px 3px 8px'
     },
@@ -89,7 +92,7 @@ const UserBar: React.FC = () => {
   }
 
   return (
-    <Card>
+    <Card className={classes.component} elevation={3}>
       <div className={classes.userBarContainer}>
         <div>
           <IconButton
@@ -158,10 +161,6 @@ const UserBar: React.FC = () => {
                       focused: classes.focusedNotchedOutline,
                       notchedOutline: classes.notchedOutline
                     }
-                  }}
-                  onKeyPress={(evt: React.KeyboardEvent<HTMLInputElement>) => {
-                    if (evt.key !== 'Enter') return
-                    setSearch(false)
                   }}
                 />
               </div>

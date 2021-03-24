@@ -170,7 +170,7 @@ const AppBar: React.FC = () => {
                     startIcon={app.icon}
                     onClick={
                       (evt: React.SyntheticEvent) => {
-                        alert(`Você clicou em ${evt.currentTarget.textContent}`)
+                        alert(`Você clicou em ${app.name}`)
                       }
                     }
                   >

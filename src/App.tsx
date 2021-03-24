@@ -2,7 +2,7 @@ import React from 'react';
 import './App.css';
 import { makeStyles, createStyles, MuiThemeProvider } from '@material-ui/core/styles'
 import AppBar from './Components/AppBar'
-import View from './Components/View'
+import View from './Pages/View'
 import globalTheme from './Styles/theme'
 
 const useStyles = makeStyles(() =>
@@ -10,14 +10,14 @@ const useStyles = makeStyles(() =>
     appBar: {
       width: '320px',
       minHeight: '100%',
-      marginRight: '5px',
+      marginRight: '0.2rem',
       borderRadius: '0px'
     },
     content: {
       width: '100%',
       minHeight: '100%',
-      marginLeft: '5px',
-      padding: '10px'
+      marginLeft: '0.2rem',
+      padding: '0 0.5rem'
     }
   })
 )
