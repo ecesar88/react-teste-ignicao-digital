@@ -7,7 +7,7 @@ const colors = {
     dark: '#000000'
   },
   secondary: {
-    main: '#E5E5E5',
+    main: '#2C2C2C',
     light: '#ECECEC'
   },
   starHighlight: '#ff0000'
@@ -20,10 +20,10 @@ const globalTheme = createMuiTheme({
     "fontWeightRegular": 400,
     "fontWeightMedium": 500,
     "fontWeightBold": 700,
-    subtitle1 :{
+    subtitle1: {
       color: colors.primary.dark
     },
-    subtitle2 :{
+    subtitle2: {
       color: colors.primary.dark
     },
     body1: {

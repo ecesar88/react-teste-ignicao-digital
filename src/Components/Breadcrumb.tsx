@@ -12,8 +12,8 @@ const useStyles = makeStyles((theme: Theme) =>
             width: '100%',
             display: 'grid',
             gridTemplateColumns: '0.15fr 0.75fr 0.1fr',
-            padding: '0.5rem',
-            color: theme.palette.primary.main
+            color: theme.palette.primary.main,
+            marginBottom: '1.2rem'
         },
         pageTitle: {
             display: 'flex',
