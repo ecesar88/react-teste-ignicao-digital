@@ -54,6 +54,9 @@ const useStyles = makeStyles((theme: Theme) =>
       minWidth: '0',
       minHeight: '0',
       padding: '4px 8px',
+      fontSize: '15px',
+      textAlign: 'left',
+      fontWeight: 'bold',
       color: theme.palette.primary.main,
       '&::before': {
         borderBottom: 'none'
@@ -144,9 +147,6 @@ const AppBar: React.FC = () => {
                 <MenuItem value='managerArea'>
                   Área do Gerente
                 </MenuItem>
-                <MenuItem value='systemConfiguration'>
-                  Config. do Sistema
-                </MenuItem>
               </Select>
             </div>
           </div>
@@ -159,6 +159,7 @@ const AppBar: React.FC = () => {
                 APPS
               </Box>
             </Typography>
+            {/* Faster mapping through each item than writing them one by one */}
             {
               apps.map((app) => {
                 return (
@@ -167,7 +168,11 @@ const AppBar: React.FC = () => {
                     color='primary'
                     className={classes.appButton}
                     startIcon={app.icon}
-                    onClick={() => alert('Você clicou!')}
+                    onClick={
+                      (evt: React.SyntheticEvent) => {
+                        alert(`Você clicou em ${evt.currentTarget.textContent}`)
+                      }
+                    }
                   >
                     {app.name}
                   </Button>
