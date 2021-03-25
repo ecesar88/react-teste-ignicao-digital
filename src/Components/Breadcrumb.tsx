@@ -36,10 +36,6 @@ const useStyles = makeStyles((theme: Theme) =>
     })
 )
 
-const requestResponse = {
-    total: 34
-}
-
 const Breadcrumb: React.FC = () => {
     const classes = useStyles()
 
@@ -59,7 +55,7 @@ const Breadcrumb: React.FC = () => {
                     color='primary'
                     className={classes.centerTextVertically}
                 >
-                    Resultados ({requestResponse.total})
+                    Resultados
                 </Typography>
             </div>
 

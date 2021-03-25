@@ -12,12 +12,15 @@ import {
   RadioGroup,
   Radio
 } from '@material-ui/core'
+import BeautyStars from 'beauty-stars'
 import { makeStyles, createStyles, Theme } from '@material-ui/core/styles'
 import { formatPrice } from '../Util/index'
 
-interface Categorie {
+interface Category {
   name: string,
-  amount: number
+  amount: number,
+  value: string,
+  checked: boolean
 }
 
 const useStyles = makeStyles((theme: Theme) =>
@@ -52,9 +55,15 @@ const useStyles = makeStyles((theme: Theme) =>
       display: 'flex',
       justifyContent: 'space-between'
     },
-    rating: {
+    ratingContainer: {
       display: 'flex',
-      justifyContent: 'space-between'
+      justifyContent: 'space-between',
+      marginBottom: '0.8rem'
+    },
+    categoryContainer: {
+      display: 'flex',
+      justifyContent: 'space-between',
+      alignItems: 'center'
     }
   })
 )
@@ -63,31 +72,65 @@ const useStyles = makeStyles((theme: Theme) =>
 const categoriesPayload = [
   {
     name: 'Érico Rocha',
-    amount: 1920
+    value: 'erico rocha',
+    amount: 1920,
+    checked: true
   },
   {
     name: 'Desafio 6 em 7',
-    amount: 1920
+    value: 'desafio 6 em 7',
+    amount: 1920,
+    checked: false
   },
   {
     name: 'Fórmula de lançamento',
-    amount: 462
+    value: 'formula de lancamento',
+    amount: 462,
+    checked: true
   },
   {
     name: 'KlickPages',
-    amount: 6556
+    value: 'klickpages',
+    amount: 6556,
+    checked: false
   },
   {
     name: 'Audios',
-    amount: 120
+    value: 'audios',
+    amount: 120,
+    checked: false
   }
 ]
 
+const ratings = [
+  {
+    value: 5,
+    amount: 8500
+  },
+  {
+    value: 4,
+    amount: 3250
+  },
+  {
+    value: 3,
+    amount: 1120
+  },
+  {
+    value: 2,
+    amount: 900
+  },
+  {
+    value: 1,
+    amount: 436
+  }
+]
+
+
 const Filters: React.FC = () => {
   const classes = useStyles()
-  const [radioValue, setRadioValue] = useState('female')
+  const [radioValue, setRadioValue] = useState('all')
   const [sliderValue, setSliderValue] = useState<number[]>([300, 2500])
-  const [categories, setCategories] = useState<Categorie[]>([])
+  const [categories, setCategories] = useState<Category[]>(categoriesPayload)
 
   const handleRadioChange = (evt: React.ChangeEvent<HTMLInputElement>) => {
     setRadioValue(evt.target.value);
@@ -97,12 +140,18 @@ const Filters: React.FC = () => {
     setSliderValue(newValue as number[]);
   }
 
+  const handleButtonClearFilters = () => {
+    setRadioValue('all')
+    setSliderValue([0, 5000])
+    setCategories(categoriesPayload)
+  }
+
   return (
     <div className={classes.filterContainer}>
       <div className={classes.filterContainerTitle}>
         <Typography variant='body1' color='primary'>
           Filtros
-                </Typography>
+        </Typography>
       </div>
       <Card elevation={3} className={classes.filterContentContainer}>
         <div>
@@ -112,7 +161,7 @@ const Filters: React.FC = () => {
             className={classes.filterContentTitle}
           >
             Preços
-                    </Typography>
+          </Typography>
         </div>
 
         <div className={classes.selectGroup}>
@@ -143,7 +192,7 @@ const Filters: React.FC = () => {
             className={classes.typographyBold}
           >
             Valores
-                    </Typography>
+          </Typography>
 
           <Typography
             color='primary'
@@ -171,23 +220,33 @@ const Filters: React.FC = () => {
             className={classes.typographyBold}
           >
             Categorias
-                    </Typography>
+          </Typography>
         </div>
 
         <div className={classes.categories}>
           <FormControl component="fieldset">
-            <FormGroup aria-label="position" row>
+            <FormGroup aria-label="position">
               {
-                categoriesPayload.map((categorie: Categorie) => {
+                categoriesPayload.map((currentCategory: Category, index: number) => {
                   return (
-                    <FormControlLabel
-                      value={categorie.name}
-                      control={
-                        <Checkbox color='primary' />
-                      }
-                      label={categorie.name}
-                      labelPlacement='end'
-                    />
+                    <div className={classes.categoryContainer}>
+                      <div>
+                        <FormControlLabel
+                          control={
+                            <Checkbox
+                              className={classes.categoryContainer}
+                              color='primary'
+                              value={categories[index].name}
+                            />
+                          }
+                          label={currentCategory.name}
+                          labelPlacement='end'
+                        />
+                      </div>
+                      <div>
+                        <p>{currentCategory.amount}</p>
+                      </div>
+                    </div>
                   )
                 })
               }
@@ -203,10 +262,38 @@ const Filters: React.FC = () => {
             Avaliação
           </Typography>
         </div>
-        
-        <div className={classes.rating}>
-            Avaliação vai aqui! hehe
+
+        {/*
+          This could also come from an API instead
+          of a static object that we're using here
+        */}
+        <div>
+          {
+            ratings.map((rating) => {
+              return (
+                <div className={classes.ratingContainer}>
+                  <BeautyStars
+                    value={rating.value}
+                    inactiveColor='#999999'
+                    activeColor='#ffba25'
+                    size='1.5rem'
+                    gap='0.3rem'
+                  />
+                  <p>{rating.amount}</p>
+                </div>
+              )
+            })
+          }
         </div>
+
+        <Button
+          style={{ marginTop: '2rem' }}
+          variant='contained'
+          color='primary'
+          onClick={handleButtonClearFilters}
+        >
+          LIMPAR FILTROS
+        </Button>
 
       </Card>
     </div>
