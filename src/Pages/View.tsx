@@ -11,7 +11,8 @@ const useStyles = makeStyles((globalAppTheme: Theme) =>
     },
     contentContainer: {
       display: 'grid',
-      gridTemplateColumns: '0.3fr 0.7fr'
+      gridTemplateColumns: '0.3fr 0.7fr',
+      padding: '1.5rem 0'
     }
   })
 )
