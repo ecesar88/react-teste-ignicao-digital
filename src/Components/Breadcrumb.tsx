@@ -1,5 +1,5 @@
 import React from 'react'
-import { Typography, Button, IconButton } from '@material-ui/core'
+import { Typography, IconButton } from '@material-ui/core'
 import { makeStyles, createStyles, Theme } from '@material-ui/core/styles'
 
 import HouseOutlinedIcon from '@material-ui/icons/HouseOutlined'
