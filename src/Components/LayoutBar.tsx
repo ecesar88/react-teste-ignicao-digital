@@ -1,9 +1,10 @@
-import React, { useState } from 'react'
+import React, { useState, useContext } from 'react'
 import { Card, Typography, IconButton, Select, MenuItem } from '@material-ui/core'
 import { makeStyles, createStyles, Theme } from '@material-ui/core/styles'
 import AppsIcon from '@material-ui/icons/Apps'
 import ListIcon from '@material-ui/icons/List'
 import ExpandMoreIcon from '@material-ui/icons/ExpandMore'
+import { AppContext } from '../Context/AppContext'
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
@@ -28,15 +29,12 @@ const useStyles = makeStyles((theme: Theme) =>
   })
 )
 
-const requestResponse = {
-  total: 200
-}
-
 const LayoutBar: React.FC = () => {
   const classes = useStyles()
   //eslint-disable-next-line
   const [viewType, setViewType] = useState('grid')
   const [listing, setListing] = useState('listagem')
+  const { appContextValue } = useContext(AppContext) as any
 
   const handleButtonGridView = () => {
     setViewType('grid')
@@ -55,11 +53,20 @@ const LayoutBar: React.FC = () => {
 
   return (
     <div className={classes.layoutBarContainer}>
-      <div>
-        <Typography color='primary'>
-          {requestResponse.total} Resultados encontrados
-        </Typography>
-      </div>
+      {
+        appContextValue?.layoutBarResultsQuantity
+          ? (
+            <div>
+              <Typography color='primary'>
+                {appContextValue?.layoutBarResultsQuantity} Resultados encontrados
+              </Typography>
+            </div>
+          )
+          : (
+            <>
+            </>
+          )
+      }
       <div className={classes.buttonsContainer}>
         <Card elevation={1} className={classes.button}>
           <Select

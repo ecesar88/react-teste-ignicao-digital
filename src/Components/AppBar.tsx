@@ -103,12 +103,7 @@ const apps = [
   }
 ]
 
-const AppBar: React.FC<{
-  appContextValue: any,
-  setAppContextValue: any
-}> = (
-  { appContextValue, setAppContextValue }
-) => {
+const AppBar: React.FC = () => {
     const classes = useStyles()
     const [appView, setAppView] = useState('clientArea')
 

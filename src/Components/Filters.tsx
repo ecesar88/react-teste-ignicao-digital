@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useState, useContext } from 'react'
 import {
   Card,
   Button,
@@ -15,6 +15,7 @@ import {
 import BeautyStars from 'beauty-stars'
 import { makeStyles, createStyles, Theme } from '@material-ui/core/styles'
 import { formatPrice } from '../Util/index'
+import { AppContext } from '../Context/AppContext'
 
 interface Category {
   name: string,
@@ -137,7 +138,7 @@ const Filters: React.FC = () => {
   }
 
   const handleSliderChange = (evt: any, newValue: number | number[]) => {
-    setSliderValue(newValue as number[]);
+    setSliderValue(newValue as number[])
   }
 
   const handleButtonClearFilters = () => {

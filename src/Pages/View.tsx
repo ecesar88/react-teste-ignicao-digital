@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react'
+import React, { useState, useEffect, useContext } from 'react'
 import Breadcrumb from '../Components/Breadcrumb'
 import UserBar from '../Components/UserBar'
 import Filters from '../Components/Filters'
@@ -7,9 +7,10 @@ import { makeStyles, createStyles, Theme } from '@material-ui/core/styles'
 import LayoutBar from '../Components/LayoutBar'
 import SearchBar from '../Components/SearchBar'
 import ProductCard from '../Components/ProductCard'
+import { Product } from '../Models/Product'
+import { AppContext } from '../Context/AppContext'
 import axios from 'axios'
 import config from '../Config/jsonServer.json'
-import { Product } from '../Models/Product'
 
 const useStyles = makeStyles((globalAppTheme: Theme) =>
   createStyles({
@@ -41,69 +42,99 @@ const useStyles = makeStyles((globalAppTheme: Theme) =>
   })
 )
 
-const View: React.FC<{
-  appContextValue: any,
-  setAppContextValue: any
-}> = (
-  { appContextValue, setAppContextValue }
-) => {
-    const classes = useStyles()
-    const [products, setProducts] = useState<Product[]>([])
 
-    const getAllProducts = async () => {
-      try {
-        const response = await axios.get(`http://${config.serverAddress}/products`)
-        setProducts(response.data as any)
-      } catch (error) {
-        alert('Ocorreu um erro ao processar a sua requisição')
-      }
+// how many results in the layout bar?
+// setProducts(response.data as any)
+// setAppContextValue((prev: React.ComponentState) => ({
+//   ...prev,
+//   layoutBarResultsQuantity: `${response.data.length}`
+// }))
+
+
+const View: React.FC = () => {
+  const classes = useStyles()
+  const [products, setProducts] = useState<Product[]>([])
+  const { appContextValue, setAppContextValue } = useContext(AppContext) as any
+
+  // Get all products
+  const getAllProducts = async () => {
+    try {
+      const response = await axios.get(`http://${config.serverAddress}/products`)
+      setProducts(response.data)
+      setAppContextValue((prev: React.ComponentState) => ({
+        ...prev,
+        layoutBarResultsQuantity: products?.length
+      }))
+    } catch (error) {
+      alert('Ocorreu um erro ao processar a sua requisição')
     }
+  }
 
-    useEffect(() => {
-      getAllProducts()
-    }, [])
+  // Search products
+  const searchProduct = async (query: string) => {
+    try {
+      const response = await axios.get(`http://${config.serverAddress}/products?q=${query}`)
+      setProducts(response.data) 
+      setAppContextValue((prev: React.ComponentState) => ({
+        ...prev,
+        layoutBarResultsQuantity: products?.length
+      }))
+    } catch (error) {
+      alert('Ocorreu um erro ao processar a sua requisição')
+    }
+  }
 
-    return (
-      <div className={classes.root}>
-        <UserBar />
-        <Breadcrumb />
-        <div className={classes.contentContainer}>
-          <Filters />
-          <div className={classes.content}>
-            <div style={{ paddingBottom: '0.3rem' }}>
-              <LayoutBar />
-            </div>
-            <div className={classes.component} onClick={getAllProducts}>
-              <SearchBar />
-            </div>
-            <div className={classes.component}>
-              {
-                products.map((product: Product) => {
-                  return (
-                    <div className={classes.card}>
-                      <ProductCard
-                        key={product.id}
-                        productImage={product.productImage}
-                        productName={product.productName}
-                        productDescription={product.productDescription}
-                        createdBy={product.createdBy}
-                        price={product.price}
-                        starRating={product.starRating}
-                        heartRating={product.heartRating}
-                      />
-                    </div>
-                  )
-                })
-              }
-            </div>
+  useEffect(() => {
+    getAllProducts()
+    //eslint-disable-next-line
+  }, [])
+
+  useEffect(() => {
+    searchProduct(appContextValue?.payload?.filters?.searchBarString)
+    //eslint-disable-next-line
+  }, [appContextValue?.payload?.filters?.searchBarString])
+
+  return (
+    <div className={classes.root}>
+      <UserBar />
+      <Breadcrumb />
+      <div className={classes.contentContainer}>
+        <Filters />
+        <div className={classes.content}>
+          <div style={{ paddingBottom: '0.3rem' }}>
+            <LayoutBar />
+          </div>
+          <div className={classes.component} onClick={getAllProducts}>
+            <SearchBar />
+          </div>
+          <div className={classes.component}>
+            {
+              products.map((product: Product) => {
+                return (
+                  <div className={classes.card}>
+                    <ProductCard
+                      key={product.id}
+                      productImage={product.productImage}
+                      productName={product.productName}
+                      productDescription={product.productDescription}
+                      createdBy={product.createdBy}
+                      price={product.price}
+                      starRating={product.starRating}
+                      heartRating={product.heartRating}
+                    />
+                  </div>
+                )
+              })
+            }
           </div>
         </div>
-
-        <div className={classes.pagination}>
-          <Pagination count={10} color="primary" />
-        </div>
       </div>
-    )
-  }
+
+      <div className={classes.pagination}>
+        <Pagination count={10} color="primary" />
+      </div>
+    </div>
+  )
+}
 
 export default View

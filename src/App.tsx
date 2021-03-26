@@ -1,6 +1,7 @@
 import React, { useState } from 'react'
 import './App.css'
 import { AppContext } from './Context/AppContext'
+import { AppContextType } from './Models/Context'
 import { makeStyles, createStyles, MuiThemeProvider } from '@material-ui/core/styles'
 import AppBar from './Components/AppBar'
 import View from './Pages/View'
@@ -26,32 +27,27 @@ const useStyles = makeStyles(() =>
 const App: React.FC = () => {
   const classes = useStyles()
 
-  const initialAppContextValue = {
-    filterParams: {
-      price: '',
-      pricesRange: '',
-      categories: '',
-      productName: ''
+  const initialAppContextValue: AppContextType = {
+    appView: 'clientArea',
+    layoutBarResultsQuantity: '',
+    payload: {
+      filters: {
+        searchBarString: '',
+      }
     }
-  } as any
+  }
 
   const [appContextValue, setAppContextValue] = useState(initialAppContextValue)
 
   return (
     <MuiThemeProvider theme={globalTheme}>
-      <AppContext.Provider value={appContextValue as any}>
+      <AppContext.Provider value={{ appContextValue, setAppContextValue } as any}>
         <div className={classes.appBar}>
-          <AppBar
-            appContextValue={appContextValue}
-            setAppContextValue={setAppContextValue}
-          />
+          <AppBar />
         </div>
 
         <div className={classes.content}>
-          <View
-            appContextValue={appContextValue}
-            setAppContextValue={setAppContextValue}
-          />
+          <View />
         </div>
       </AppContext.Provider>
     </MuiThemeProvider>
