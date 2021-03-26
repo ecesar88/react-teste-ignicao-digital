@@ -9,8 +9,8 @@ import { AppContext } from '../Context/AppContext'
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
     layoutBarContainer: {
-      display: 'flex',
-      justifyContent: 'space-between',
+      display: 'grid',
+      gridTemplateColumns: '1fr 0.2fr',
       alignItems: 'center'
     },
     buttonsContainer: {
@@ -38,12 +38,10 @@ const LayoutBar: React.FC = () => {
 
   const handleButtonGridView = () => {
     setViewType('grid')
-    console.log(viewType)
   }
 
   const handleButtonListView = () => {
     setViewType('list')
-    console.log(viewType)
   }
 
   const handleSelectListing =
@@ -63,8 +61,8 @@ const LayoutBar: React.FC = () => {
             </div>
           )
           : (
-            <>
-            </>
+            <div>
+            </div>
           )
       }
       <div className={classes.buttonsContainer}>

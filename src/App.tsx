@@ -29,6 +29,7 @@ const App: React.FC = () => {
 
   const initialAppContextValue: AppContextType = {
     appView: 'clientArea',
+    viewType: 'list',
     layoutBarResultsQuantity: '',
     payload: {
       filters: {

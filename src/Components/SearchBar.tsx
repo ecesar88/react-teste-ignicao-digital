@@ -31,10 +31,8 @@ const useStyles = makeStyles((theme: Theme) =>
 
 const SearchBar: React.FC = () => {
   const classes = useStyles()
-
-  // will not use this
-  //eslint-disable-next-line
-  const { appContextValue, setAppContextValue } = useContext(AppContext) as any
+  
+  const { setAppContextValue } = useContext(AppContext) as any
   const [searchBar, setSearchBar] = useState<string>('')
 
   const handleSearchBarOnChange = (evt: React.ChangeEvent<HTMLInputElement>) => {

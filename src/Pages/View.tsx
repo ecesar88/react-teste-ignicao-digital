@@ -42,15 +42,6 @@ const useStyles = makeStyles((globalAppTheme: Theme) =>
   })
 )
 
-
-// how many results in the layout bar?
-// setProducts(response.data as any)
-// setAppContextValue((prev: React.ComponentState) => ({
-//   ...prev,
-//   layoutBarResultsQuantity: `${response.data.length}`
-// }))
-
-
 const View: React.FC = () => {
   const classes = useStyles()
   const [products, setProducts] = useState<Product[]>([])
@@ -74,11 +65,24 @@ const View: React.FC = () => {
   const searchProduct = async (query: string) => {
     try {
       const response = await axios.get(`http://${config.serverAddress}/products?q=${query}`)
-      setProducts(response.data) 
+      setProducts(response.data)
       setAppContextValue((prev: React.ComponentState) => ({
         ...prev,
         layoutBarResultsQuantity: products?.length
       }))
+    } catch (error) {
+      alert('Ocorreu um erro ao processar a sua requisição')
+    }
+  }
+
+  // Search products with the radio buttons
+  const searchProductPriceRadio = async (query: string) => {
+    try {
+      const price1 = query?.replace(/(\d)-(\d)/, '$1')
+      const price2 = query?.replace(/(\d)-(\d)/, '$2')
+
+      const response = await axios.get(`http://${config.serverAddress}/products?price_gte=${price1}&price_lte=${price2}`)
+      setProducts(response.data)
     } catch (error) {
       alert('Ocorreu um erro ao processar a sua requisição')
     }
@@ -94,6 +98,10 @@ const View: React.FC = () => {
     //eslint-disable-next-line
   }, [appContextValue?.payload?.filters?.searchBarString])
 
+  useEffect(() => {
+    searchProductPriceRadio(appContextValue?.payload?.filters?.radioPrice)
+  }, [appContextValue?.payload?.filters?.radioPrice])
+
   return (
     <div className={classes.root}>
       <UserBar />
@@ -104,7 +112,7 @@ const View: React.FC = () => {
           <div style={{ paddingBottom: '0.3rem' }}>
             <LayoutBar />
           </div>
-          <div className={classes.component} onClick={getAllProducts}>
+          <div className={classes.component}>
             <SearchBar />
           </div>
           <div className={classes.component}>

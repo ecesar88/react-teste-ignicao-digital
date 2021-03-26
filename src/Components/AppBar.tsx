@@ -1,4 +1,5 @@
 import React, { useState } from 'react'
+import { BrowserRouter as Router, Route, Link } from 'react-router-dom'
 import LogoIgnicao from '../Assets/Brand.svg'
 import {
   Container,
@@ -17,7 +18,8 @@ import ExpandMoreIcon from '@material-ui/icons/ExpandMore'
 import EmailIcon from '@material-ui/icons/Email'
 import ChatBubbleIcon from '@material-ui/icons/ChatBubble'
 import CheckCircleOutlineIcon from '@material-ui/icons/CheckCircleOutline'
-import TodayIcon from '@material-ui/icons/Today';
+import TodayIcon from '@material-ui/icons/Today'
+import Teapot from './Teapot'
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
@@ -104,24 +106,31 @@ const apps = [
 ]
 
 const AppBar: React.FC = () => {
-    const classes = useStyles()
-    const [appView, setAppView] = useState('clientArea')
+  const classes = useStyles()
+  const [appView, setAppView] = useState('clientArea')
 
-    // transfer to context ?
-    const handleViewSelectionChange =
-      (event: React.ChangeEvent<{ value: unknown }>): void => {
-        setAppView(event.target.value as string)
-      }
-    return (
+  // transfer to context ?
+  const handleViewSelectionChange =
+    (event: React.ChangeEvent<{ value: unknown }>): void => {
+      setAppView(event.target.value as string)
+    }
+
+  return (
+    <Router>
       <Paper elevation={3} className={classes.appBar}>
         <Container>
           <Grid xs={12} className={classes.logoGrid}>
             <div className={classes.logo}>
-              <img
-                src={LogoIgnicao}
-                alt="Ignição Digital"
-                style={{ height: '70px' }}
-              />
+              <Link to='/teapot'>
+                <img
+                  src={LogoIgnicao}
+                  alt='Ignição Digital'
+                  style={{
+                    height: '70px',
+                    cursor: 'pointer'
+                  }}
+                />
+              </Link>
             </div>
           </Grid>
           <Grid xs={12} className={classes.selectGrid}>
@@ -182,8 +191,11 @@ const AppBar: React.FC = () => {
             </div>
           </Grid>
         </Container>
-      </Paper>
-    )
-  }
+      </Paper >
+
+      <Route path='/teapot' exact component={Teapot} />
+    </Router>
+  )
+}
 
 export default AppBar
