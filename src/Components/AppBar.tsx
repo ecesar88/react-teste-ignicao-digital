@@ -1,5 +1,5 @@
 import React, { useState } from 'react'
-import { BrowserRouter as Router, Route, Link } from 'react-router-dom'
+import { Link } from 'react-router-dom'
 import LogoIgnicao from '../Assets/Brand.svg'
 import {
   Container,
@@ -19,7 +19,6 @@ import EmailIcon from '@material-ui/icons/Email'
 import ChatBubbleIcon from '@material-ui/icons/ChatBubble'
 import CheckCircleOutlineIcon from '@material-ui/icons/CheckCircleOutline'
 import TodayIcon from '@material-ui/icons/Today'
-import Teapot from './Teapot'
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
@@ -109,19 +108,18 @@ const AppBar: React.FC = () => {
   const classes = useStyles()
   const [appView, setAppView] = useState('clientArea')
 
-  // transfer to context ?
   const handleViewSelectionChange =
     (event: React.ChangeEvent<{ value: unknown }>): void => {
       setAppView(event.target.value as string)
     }
 
   return (
-    <Router>
+    <>
       <Paper elevation={3} className={classes.appBar}>
         <Container>
           <Grid xs={12} className={classes.logoGrid}>
             <div className={classes.logo}>
-              <Link to='/teapot'>
+              <Link to='/'>
                 <img
                   src={LogoIgnicao}
                   alt='Ignição Digital'
@@ -192,9 +190,7 @@ const AppBar: React.FC = () => {
           </Grid>
         </Container>
       </Paper >
-
-      <Route path='/teapot' exact component={Teapot} />
-    </Router>
+    </>
   )
 }
 

@@ -6,6 +6,8 @@ import { makeStyles, createStyles, MuiThemeProvider } from '@material-ui/core/st
 import AppBar from './Components/AppBar'
 import View from './Pages/View'
 import globalTheme from './Styles/theme'
+import { BrowserRouter as Router, Route } from 'react-router-dom'
+import Teapot from './Pages/Teapot'
 
 const useStyles = makeStyles(() =>
   createStyles({
@@ -41,17 +43,24 @@ const App: React.FC = () => {
   const [appContextValue, setAppContextValue] = useState(initialAppContextValue)
 
   return (
-    <MuiThemeProvider theme={globalTheme}>
-      <AppContext.Provider value={{ appContextValue, setAppContextValue } as any}>
-        <div className={classes.appBar}>
-          <AppBar />
-        </div>
+    <>
+      <Router>
+        <MuiThemeProvider theme={globalTheme}>
+          <AppContext.Provider value={{ appContextValue, setAppContextValue } as any}>
+            <div className={classes.appBar}>
+              <AppBar />
+            </div>
 
-        <div className={classes.content}>
-          <View />
-        </div>
-      </AppContext.Provider>
-    </MuiThemeProvider>
+            <div className={classes.content}>
+              <Route path="/" component={View} exact />
+              <Route path="/teapot" component={Teapot} exact />
+            </div>
+          </AppContext.Provider>
+        </MuiThemeProvider>
+
+      </Router>
+
+    </>
   );
 }
 

@@ -19,6 +19,7 @@ import StarIcon from '@material-ui/icons/Star'
 import NotificationsNoneIcon from '@material-ui/icons/NotificationsNone'
 import SearchIcon from '@material-ui/icons/Search'
 import UserProfileButton from './UserProfileButton'
+import { Link } from 'react-router-dom'
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
@@ -94,13 +95,15 @@ const UserBar: React.FC = () => {
     <Card className={classes.component} elevation={3}>
       <div className={classes.userBarContainer}>
         <div>
-          <IconButton
-            aria-label='todo'
-            className={classes.iconButton}
-            onClick={handleButtonCheck}
-          >
-            <CheckCircleOutlineIcon />
-          </IconButton>
+          <Link to="/teapot">
+            <IconButton
+              aria-label='todo'
+              className={classes.iconButton}
+              onClick={handleButtonCheck}
+            >
+              <CheckCircleOutlineIcon />
+            </IconButton>
+          </Link>
 
           <IconButton
             aria-label='chatBubble'
