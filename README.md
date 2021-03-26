@@ -8,10 +8,10 @@ Isso vai instalar as dependências do projeto na pasta node_modules (pode demora
 
 ## Após terminada a instalação, vamos iniciar o projeto.
 
-Abra mais um terminal e execute os comandos
-### `yarn start` e,
+Abra mais um terminal e execute os comandos na seguinte ordem:
+### `yarn database` e,
 
-### `yarn database`
+### `yarn start`
 
 Isso vai iniciar o front-end em React e o json-server que utilizei para simular um banco
 de dados.
