@@ -108,6 +108,7 @@ const View: React.FC = () => {
   }
 
   // Search products with the categores checkboxes
+  //eslint-disable-next-line
   const searchProductCategoryCheckBox = async (query: string) => {
     try {
       const response = await axios.get(
