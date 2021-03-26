@@ -22,6 +22,10 @@ export const colors = {
     tertiary: {
       background: '#787878',
       foreground: '#FFFFFF'
+    },
+    alternative: {
+      background: '#544848',
+      foreground: '#FFFFFF'
     }
   }
 }

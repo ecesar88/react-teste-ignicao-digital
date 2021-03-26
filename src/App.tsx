@@ -36,7 +36,8 @@ const App: React.FC = () => {
     payload: {
       filters: {
         searchBarString: '',
-        radioPrice: '0-999999'
+        radioPrice: '0-999999',
+        sliderPrice: [300, 2500]
       }
     }
   }

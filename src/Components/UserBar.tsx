@@ -19,6 +19,7 @@ import StarIcon from '@material-ui/icons/Star'
 import NotificationsNoneIcon from '@material-ui/icons/NotificationsNone'
 import SearchIcon from '@material-ui/icons/Search'
 import UserProfileButton from './UserProfileButton'
+import { colors } from '../Styles/theme'
 import { Link } from 'react-router-dom'
 
 const useStyles = makeStyles((theme: Theme) =>
@@ -100,6 +101,7 @@ const UserBar: React.FC = () => {
               aria-label='todo'
               className={classes.iconButton}
               onClick={handleButtonCheck}
+              style={{ color: `${colors.button.alternative.background}` }}
             >
               <CheckCircleOutlineIcon />
             </IconButton>

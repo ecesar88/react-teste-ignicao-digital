@@ -131,6 +131,7 @@ const AppBar: React.FC = () => {
               </Link>
             </div>
           </Grid>
+
           <Grid xs={12} className={classes.selectGrid}>
             <div className={classes.selectContainer}>
               <div className={classes.selectIcon}>

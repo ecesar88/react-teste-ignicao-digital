@@ -141,16 +141,24 @@ const Filters: React.FC = () => {
       ...prev,
       payload: {
         filters: {
+          ...prev.filters,
           radioPrice: evt.target.value
         }
       }
     }))
-    console.log(appContextValue?.payload?.filters?.radioPrice)
-
   }
 
   const handleSliderChange = (evt: any, newValue: number | number[]) => {
     setSliderValue(newValue as number[])
+    setAppContextValue((prev: React.ComponentState) => ({
+      ...prev,
+      payload: {
+        filters: {
+          ...prev.filters,
+          sliderPrice: newValue as number[]
+        }
+      }
+    }))
   }
 
   const handleButtonClearFilters = () => {

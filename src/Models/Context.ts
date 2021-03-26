@@ -5,8 +5,9 @@ export interface AppContextType {
   payload: {
     filters: {
       searchBarString?: string,
-      searchPricesSlider?: [number, number],
-      radioPrice?: string
+      sliderPrice?: [number, number],
+      radioPrice?: string,
+      categoryName?: string
     }
   }
 }

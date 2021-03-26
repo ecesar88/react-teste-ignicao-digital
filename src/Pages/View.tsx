@@ -11,6 +11,7 @@ import { Product } from '../Models/Product'
 import { AppContext } from '../Context/AppContext'
 import axios from 'axios'
 import config from '../Config/jsonServer.json'
+import { debounce } from '../Util/debouce'
 
 const useStyles = makeStyles((globalAppTheme: Theme) =>
   createStyles({
@@ -50,7 +51,9 @@ const View: React.FC = () => {
   // Get all products
   const getAllProducts = async () => {
     try {
-      const response = await axios.get(`http://${config.serverAddress}/products`)
+      const response = await axios.get(
+        `http://${config.serverAddress}/products`
+      )
       setProducts(response.data)
       setAppContextValue((prev: React.ComponentState) => ({
         ...prev,
@@ -64,7 +67,9 @@ const View: React.FC = () => {
   // Search products
   const searchProduct = async (query: string) => {
     try {
-      const response = await axios.get(`http://${config.serverAddress}/products?q=${query}`)
+      const response = await axios.get(
+        `http://${config.serverAddress}/products?q=${query}`
+      )
       setProducts(response.data)
       setAppContextValue((prev: React.ComponentState) => ({
         ...prev,
@@ -81,7 +86,33 @@ const View: React.FC = () => {
       const price1 = query?.replace(/(\d{1,4})-(\d{1,6})/, '$1')
       const price2 = query?.replace(/(\d{1,4})-(\d{1,6})/, '$2')
 
-      const response = await axios.get(`http://${config.serverAddress}/products?price_gte=${price1}&price_lte=${price2}`)
+      const response = await axios.get(
+        `http://${config.serverAddress}/products?price_gte=${price1}&price_lte=${price2}`
+      )
+      setProducts(response.data)
+    } catch (error) {
+      alert('Ocorreu um erro ao processar a sua requisição')
+    }
+  }
+
+  // Search products with the select input
+  const searchProductPriceSelect = async (query: [number, number]) => {
+    try {
+      const response = await axios.get(
+        `http://${config.serverAddress}/products?price_gte=${query[0]}&price_lte=${query[1]}`
+      )
+      setProducts(response.data)
+    } catch (error) {
+      alert('Ocorreu um erro ao processar a sua requisição')
+    }
+  }
+
+  // Search products with the categores checkboxes
+  const searchProductCategoryCheckBox = async (query: string) => {
+    try {
+      const response = await axios.get(
+        `http://${config.serverAddress}/products?category_like${query}`
+      )
       setProducts(response.data)
     } catch (error) {
       alert('Ocorreu um erro ao processar a sua requisição')
@@ -101,6 +132,17 @@ const View: React.FC = () => {
   useEffect(() => {
     searchProductPriceRadio(appContextValue?.payload?.filters?.radioPrice)
   }, [appContextValue?.payload?.filters?.radioPrice])
+
+  const debounceFn = debounce(
+    () => {
+      searchProductPriceSelect(appContextValue?.payload?.filters?.sliderPrice)
+    }, 200
+  )
+
+  useEffect(() => {
+    debounceFn()
+    //eslint-disable-next-line
+  }, [appContextValue?.payload?.filters?.sliderPrice])
 
   return (
     <div className={classes.root}>
