@@ -103,87 +103,92 @@ const apps = [
   }
 ]
 
-const AppBar: React.FC = () => {
-  const classes = useStyles()
-  const [appView, setAppView] = useState('clientArea')
+const AppBar: React.FC<{
+  appContextValue: any,
+  setAppContextValue: any
+}> = (
+  { appContextValue, setAppContextValue }
+) => {
+    const classes = useStyles()
+    const [appView, setAppView] = useState('clientArea')
 
-  // transfer to context ?
-  const handleViewSelectionChange =
-    (event: React.ChangeEvent<{ value: unknown }>): void => {
-      setAppView(event.target.value as string)
-    }
-  return (
-    <Paper elevation={3} className={classes.appBar}>
-      <Container>
-        <Grid xs={12} className={classes.logoGrid}>
-          <div className={classes.logo}>
-            <img
-              src={LogoIgnicao}
-              alt="Ignição Digital"
-              style={{ height: '70px' }}
-            />
-          </div>
-        </Grid>
-        <Grid xs={12} className={classes.selectGrid}>
-          <div className={classes.selectContainer}>
-            <div className={classes.selectIcon}>
-              <HouseIcon />
+    // transfer to context ?
+    const handleViewSelectionChange =
+      (event: React.ChangeEvent<{ value: unknown }>): void => {
+        setAppView(event.target.value as string)
+      }
+    return (
+      <Paper elevation={3} className={classes.appBar}>
+        <Container>
+          <Grid xs={12} className={classes.logoGrid}>
+            <div className={classes.logo}>
+              <img
+                src={LogoIgnicao}
+                alt="Ignição Digital"
+                style={{ height: '70px' }}
+              />
             </div>
+          </Grid>
+          <Grid xs={12} className={classes.selectGrid}>
+            <div className={classes.selectContainer}>
+              <div className={classes.selectIcon}>
+                <HouseIcon />
+              </div>
 
-            <div>
-              <Select
-                className={classes.select}
-                fullWidth
-                labelId='demo-simple-select-outlined-label'
-                id='demo-simple-select-outlined'
-                value={appView}
-                label=''
-                onChange={handleViewSelectionChange}
-                IconComponent={ExpandMoreIcon}
-              >
-                <MenuItem value='clientArea' selected>
-                  Área Do Cliente
+              <div>
+                <Select
+                  className={classes.select}
+                  fullWidth
+                  labelId='demo-simple-select-outlined-label'
+                  id='demo-simple-select-outlined'
+                  value={appView}
+                  label=''
+                  onChange={handleViewSelectionChange}
+                  IconComponent={ExpandMoreIcon}
+                >
+                  <MenuItem value='clientArea' selected>
+                    Área Do Cliente
                 </MenuItem>
-                <MenuItem value='managerArea'>
-                  Área do Gerente
+                  <MenuItem value='managerArea'>
+                    Área do Gerente
                 </MenuItem>
-              </Select>
+                </Select>
+              </div>
             </div>
-          </div>
-        </Grid>
+          </Grid>
 
-        <Grid xs={12}>
-          <div className={classes.appsContainer}>
-            <Typography variant='body1' gutterBottom>
-              <Box fontWeight='fontWeightBold' m={1}>
-                APPS
+          <Grid xs={12}>
+            <div className={classes.appsContainer}>
+              <Typography variant='body1' gutterBottom>
+                <Box fontWeight='fontWeightBold' m={1}>
+                  APPS
               </Box>
-            </Typography>
-            {/* Faster mapping through each item than writing them one by one */}
-            {
-              apps.map((app) => {
-                return (
-                  <Button
-                    key={app.id}
-                    color='primary'
-                    className={classes.appButton}
-                    startIcon={app.icon}
-                    onClick={
-                      (evt: React.SyntheticEvent) => {
-                        alert(`Você clicou em ${app.name}`)
+              </Typography>
+              {/* Faster mapping through each item than writing them one by one */}
+              {
+                apps.map((app) => {
+                  return (
+                    <Button
+                      key={app.id}
+                      color='primary'
+                      className={classes.appButton}
+                      startIcon={app.icon}
+                      onClick={
+                        (evt: React.SyntheticEvent) => {
+                          alert(`Você clicou em ${app.name}`)
+                        }
                       }
-                    }
-                  >
-                    {app.name}
-                  </Button>
-                )
-              })
-            }
-          </div>
-        </Grid>
-      </Container>
-    </Paper>
-  )
-}
+                    >
+                      {app.name}
+                    </Button>
+                  )
+                })
+              }
+            </div>
+          </Grid>
+        </Container>
+      </Paper>
+    )
+  }
 
 export default AppBar

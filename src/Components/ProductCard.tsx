@@ -5,7 +5,7 @@ import { colors } from '../Styles/theme'
 import StarOutlineIcon from '@material-ui/icons/StarOutline'
 import LocalMallIcon from '@material-ui/icons/LocalMall'
 import FavoriteBorderIcon from '@material-ui/icons/FavoriteBorder'
-import ImagePlaceholder from '../Assets/img_placeholder.jpg'
+// import ImagePlaceholder from '../Assets/img_placeholder.jpg'
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
@@ -71,7 +71,20 @@ const useStyles = makeStyles((theme: Theme) =>
   })
 )
 
-const ProductCard: React.FC = () => {
+interface ProductCardProps {
+  id?: string;
+  productImage: string;
+  productName: string;
+  productDescription: string;
+  createdBy: string;
+  price: number;
+  starRating: string;
+  heartRating: string;
+}
+
+const ProductCard: React.FC<ProductCardProps> = (
+  { id, productImage, productName, productDescription, createdBy, price, starRating, heartRating }
+) => {
   const classes = useStyles()
 
   return (
@@ -79,7 +92,7 @@ const ProductCard: React.FC = () => {
       <div>
         <img
           className={classes.image}
-          src={ImagePlaceholder}
+          src={productImage}
           alt='Placeholder'
         />
       </div>
@@ -87,17 +100,17 @@ const ProductCard: React.FC = () => {
       <div className={classes.textContainer}>
         <div>
           <div className={classes.textTitle}>
-            <h3>FÓRMULA DE LANÇAMENTO</h3>
+            <h3>{productName}</h3>
           </div>
 
           <div className={classes.textSubtitleContainer}>
             <span className={classes.textSubtitle1}>Por&nbsp;</span>
-            <p className={classes.textSubtitle2}>ÉRICO ROCHA</p>
+            <p className={classes.textSubtitle2}>{createdBy}</p>
           </div>
         </div>
 
         <div className={classes.textDescriptionContainer}>
-          <p>Ex consectetur nam quasi autem beatae consequatur. Sunt natus sit voluptatem maxime assumenda recusandae qui. Sed qui sit qui. Qui molestiae placeat rem tempora quibusdam vel nam unde. Necessitatibus perspiciatis velit non accusamus excepturi fuga cum. </p>
+          <p>{productDescription}</p>
         </div>
       </div>
 
@@ -113,12 +126,12 @@ const ProductCard: React.FC = () => {
                 color: colors.button.tertiary.foreground
               }}
             >
-              3.4
+              {starRating}
             </Button>
           </div>
 
           <div style={{ textAlign: 'center' }}>
-            <h3>R$ 2500</h3>
+            <h3>R$ {price}</h3>
           </div>
         </div>
 
@@ -135,7 +148,7 @@ const ProductCard: React.FC = () => {
                 width: '100%'
               }}
             >
-              3.4
+              {heartRating}
             </Button>
           </div>
 
