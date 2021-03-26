@@ -129,20 +129,22 @@ const ratings = [
 
 const Filters: React.FC = () => {
   const classes = useStyles()
-  const [radioValue, setRadioValue] = useState('all')
+  const [radioValue, setRadioValue] = useState('0-999999')
   const [sliderValue, setSliderValue] = useState<number[]>([300, 2500])
   const [categories, setCategories] = useState<Category[]>(categoriesPayload)
-  const { setAppContextValue } = useContext(AppContext) as any
+  const { appContextValue, setAppContextValue } = useContext(AppContext) as any
 
   const handleRadioChange = async (evt: React.ChangeEvent<HTMLInputElement>) => {
-    await setRadioValue(evt.target.value)
+    setRadioValue(evt.target.value)
+
     setAppContextValue((prev: React.ComponentState) => ({
       ...prev,
       filters: {
         radioPrice: evt.target.value
       }
     }))
-    console.log(radioValue)
+    console.log(appContextValue?.payload?.filters?.radioPrice)
+
   }
 
   const handleSliderChange = (evt: any, newValue: number | number[]) => {
@@ -179,13 +181,13 @@ const Filters: React.FC = () => {
               aria-label='price'
               name='prices'
               value={radioValue}
-              
+              onChange={handleRadioChange}
             >
-              <FormControlLabel value='10-10' control={<Radio onChange={handleRadioChange}/>} label='R$10,00' />
-              <FormControlLabel value='10-100' control={<Radio onChange={handleRadioChange}/>} label='R$10-$100' />
-              <FormControlLabel value='100-500' control={<Radio onChange={handleRadioChange}/>} label='R$100-$500' />
-              <FormControlLabel value='500-500' control={<Radio onChange={handleRadioChange}/>} label='R$500' />
-              <FormControlLabel value='0-999999' control={<Radio onChange={handleRadioChange}/>} label='Todos' />
+              <FormControlLabel value='10-10' control={<Radio />} label='R$10,00' />
+              <FormControlLabel value='10-100' control={<Radio />} label='R$10-$100' />
+              <FormControlLabel value='100-500' control={<Radio />} label='R$100-$500' />
+              <FormControlLabel value='500-500' control={<Radio />} label='R$500' />
+              <FormControlLabel value='0-999999' control={<Radio />} label='Todos' />
             </RadioGroup>
           </FormControl>
         </div>

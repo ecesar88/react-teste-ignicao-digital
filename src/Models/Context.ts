@@ -6,7 +6,7 @@ export interface AppContextType {
     filters: {
       searchBarString?: string,
       searchPricesSlider?: [number, number],
-      radioPrice?: number
+      radioPrice?: string
     }
   }
 }

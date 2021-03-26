@@ -36,6 +36,7 @@ const App: React.FC = () => {
     payload: {
       filters: {
         searchBarString: '',
+        radioPrice: '0-999999'
       }
     }
   }

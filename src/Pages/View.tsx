@@ -78,8 +78,8 @@ const View: React.FC = () => {
   // Search products with the radio buttons
   const searchProductPriceRadio = async (query: string) => {
     try {
-      const price1 = query?.replace(/(\d)-(\d)/, '$1')
-      const price2 = query?.replace(/(\d)-(\d)/, '$2')
+      const price1 = query?.replace(/(\d{1,4})-(\d{1,6})/, '$1')
+      const price2 = query?.replace(/(\d{1,4})-(\d{1,6})/, '$2')
 
       const response = await axios.get(`http://${config.serverAddress}/products?price_gte=${price1}&price_lte=${price2}`)
       setProducts(response.data)
