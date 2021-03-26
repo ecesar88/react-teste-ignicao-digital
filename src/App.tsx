@@ -8,7 +8,7 @@ import globalTheme from './Styles/theme'
 const useStyles = makeStyles(() =>
   createStyles({
     appBar: {
-      width: '320px',
+      width: '270px',
       minHeight: '100%',
       marginRight: '0.2rem',
       borderRadius: '0px'

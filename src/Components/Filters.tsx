@@ -30,7 +30,7 @@ const useStyles = makeStyles((theme: Theme) =>
       flexDirection: 'column',
     },
     filterContainerTitle: {
-      paddingBottom: '0.8rem'
+      paddingBottom: '1.5rem'
     },
     filterContentContainer: {
       display: 'flex',

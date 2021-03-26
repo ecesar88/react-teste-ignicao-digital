@@ -1,6 +1,6 @@
 import { createMuiTheme } from '@material-ui/core/styles'
 
-const colors = {
+export const colors = {
   primary: {
     main: '#2C2C2C',
     light: '#999999',
@@ -10,7 +10,20 @@ const colors = {
     main: '#2C2C2C',
     light: '#ECECEC'
   },
-  starHighlight: '#ff0000'
+  button: {
+    primary: {
+      background: '#686868',
+      foreground: '#FFFFFF'
+    },
+    secondary: {
+      background: '#EDEDED',
+      foreground: '#2C2C2C'
+    },
+    tertiary: {
+      background: '#787878',
+      foreground: '#FFFFFF'
+    }
+  }
 }
 
 const globalTheme = createMuiTheme({
