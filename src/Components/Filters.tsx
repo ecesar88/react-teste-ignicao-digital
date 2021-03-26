@@ -139,8 +139,10 @@ const Filters: React.FC = () => {
 
     setAppContextValue((prev: React.ComponentState) => ({
       ...prev,
-      filters: {
-        radioPrice: evt.target.value
+      payload: {
+        filters: {
+          radioPrice: evt.target.value
+        }
       }
     }))
     console.log(appContextValue?.payload?.filters?.radioPrice)
@@ -180,7 +182,7 @@ const Filters: React.FC = () => {
             <RadioGroup
               aria-label='price'
               name='prices'
-              value={radioValue}
+              value={appContextValue?.payload?.filters?.radioPrice || radioValue}
               onChange={handleRadioChange}
             >
               <FormControlLabel value='10-10' control={<Radio />} label='R$10,00' />
