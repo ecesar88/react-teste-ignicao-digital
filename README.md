@@ -2,7 +2,7 @@
 ## Etapas para iniciar o projeto:
 
 - Na pasta raiz do projeto, abra um terminal e execute o comando
-### `yarn start`
+### `yarn`
 
 Isso vai instalar as dependências do projeto na pasta node_modules (pode demorar um pouco)
 
